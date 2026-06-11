@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LedeLab Group OÜ — Tecnología que extiende el pensamiento</title>
+<meta name="description" content="LedeLab Group OÜ diseña la metodología y la tecnología de asistentes conversacionales con IA que acompañan cambios reales de conducta — salud, bienestar, educación y ciencias del comportamiento.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink-deep:#091619;
+    --ink:#0E2A2F;
+    --teal:#14393F;
+    --teal-soft:#1E5159;
+    --gold:#E8B84B;
+    --gold-soft:#D9A93C;
+    --paper:#F4F1EA;
+    --mist:#9FB3B1;
+    --line:rgba(159,179,177,.18);
+    --display:'Space Grotesk',system-ui,sans-serif;
+    --body:'Inter',system-ui,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+  body{
+    font-family:var(--body);
+    background:var(--ink-deep);
+    color:var(--paper);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--gold);color:var(--ink-deep)}
+
+  /* ---------- header ---------- */
+  header{
+    position:fixed;inset:0 0 auto 0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:1.1rem clamp(1.25rem,4vw,3rem);
+    background:linear-gradient(to bottom,rgba(9,22,25,.92),rgba(9,22,25,0));
+  }
+  .wordmark{
+    font-family:var(--display);font-weight:700;font-size:1.15rem;
+    letter-spacing:.02em;color:var(--paper);text-decoration:none;
+  }
+  .wordmark span{color:var(--gold)}
+  .lang-toggle{
+    display:flex;gap:.15rem;border:1px solid var(--line);border-radius:999px;padding:.2rem;
+    background:rgba(14,42,47,.6);backdrop-filter:blur(8px);
+  }
+  .lang-toggle button{
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;
+    background:none;border:0;color:var(--mist);padding:.35rem .8rem;border-radius:999px;
+    cursor:pointer;transition:color .2s,background .2s;
+  }
+  .lang-toggle button[aria-pressed="true"]{background:var(--gold);color:var(--ink-deep);font-weight:500}
+  .lang-toggle button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;min-height:100svh;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:6rem clamp(1.25rem,6vw,5rem) 4rem;
+    background:
+      radial-gradient(ellipse 70% 55% at 75% 30%,rgba(30,81,89,.5),transparent),
+      linear-gradient(135deg,var(--teal) 0%,var(--ink) 55%,var(--ink-deep) 100%);
+    overflow:hidden;
+  }
+  #nodes{position:absolute;inset:0;width:100%;height:100%;opacity:.5}
+  .hero-inner{position:relative;max-width:60rem}
+  .eyebrow{
+    font-family:var(--mono);font-size:.78rem;letter-spacing:.45em;
+    color:var(--gold);margin-bottom:2rem;
+  }
+  h1{
+    font-family:var(--display);font-weight:500;
+    font-size:clamp(2.1rem,5.4vw,4.3rem);
+    line-height:1.12;letter-spacing:-.015em;max-width:18ch;
+  }
+  h1 em{font-style:normal;color:var(--gold);font-weight:700}
+  .hero-sub{
+    margin-top:1.75rem;font-size:clamp(1rem,1.4vw,1.2rem);
+    color:var(--mist);max-width:52ch;
+  }
+  .hero-echo{
+    margin-top:2.5rem;font-family:var(--body);font-style:italic;
+    font-size:.95rem;color:var(--mist);opacity:.75;
+  }
+  .scroll-hint{
+    position:absolute;bottom:2rem;left:clamp(1.25rem,6vw,5rem);
+    font-family:var(--mono);font-size:.7rem;letter-spacing:.3em;color:var(--mist);
+    display:flex;align-items:center;gap:.8rem;opacity:.7;
+  }
+  .scroll-hint::after{content:"";display:block;width:3.5rem;height:1px;background:var(--mist);opacity:.5}
+
+  /* ---------- sections ---------- */
+  section{padding:clamp(4rem,9vw,7.5rem) clamp(1.25rem,6vw,5rem)}
+  .section-label{
+    font-family:var(--mono);font-size:.74rem;letter-spacing:.4em;
+    color:var(--gold);margin-bottom:2.6rem;display:flex;align-items:center;gap:1.2rem;
+  }
+  .section-label::after{content:"";flex:1;max-width:8rem;height:1px;background:var(--line)}
+
+  /* what we do */
+  .pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(17rem,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+  .pillar{background:var(--ink-deep);padding:2.4rem 2rem;transition:background .3s}
+  .pillar:hover{background:var(--ink)}
+  .pillar-glyph{width:2.4rem;height:2.4rem;margin-bottom:1.6rem}
+  .pillar-glyph circle,.pillar-glyph line,.pillar-glyph path{stroke:var(--gold);fill:none;stroke-width:1.5}
+  .pillar-glyph .dot{fill:var(--gold);stroke:none}
+  .pillar h3{font-family:var(--display);font-weight:500;font-size:1.22rem;margin-bottom:.85rem;letter-spacing:-.01em}
+  .pillar p{font-size:.94rem;color:var(--mist)}
+
+  /* approach */
+  .approach{max-width:46rem}
+  .approach p{font-size:clamp(1.15rem,2vw,1.55rem);font-family:var(--display);font-weight:400;line-height:1.5;color:var(--paper)}
+  .approach p+p{margin-top:1.6rem}
+  .approach .accent{color:var(--gold)}
+
+  /* founder */
+  .founder{display:grid;grid-template-columns:1fr;gap:2.5rem;max-width:60rem}
+  @media(min-width:760px){.founder{grid-template-columns:auto 1fr;gap:4rem}}
+  .founder-name{font-family:var(--display);font-weight:700;font-size:1.45rem;letter-spacing:-.01em}
+  .founder-role{font-family:var(--mono);font-size:.74rem;letter-spacing:.18em;color:var(--gold);margin-top:.5rem}
+  .founder-bio{color:var(--mist);font-size:.97rem;max-width:54ch}
+  .founder-creds{margin-top:1.4rem;display:flex;flex-wrap:wrap;gap:.5rem}
+  .cred{
+    font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;
+    border:1px solid var(--line);border-radius:999px;padding:.32rem .75rem;color:var(--mist);
+  }
+
+  /* contact / footer */
+  .contact{
+    border-top:1px solid var(--line);
+    background:linear-gradient(180deg,var(--ink-deep),var(--ink) 140%);
+  }
+  .contact-grid{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2.5rem;align-items:flex-end}
+  .contact h2{font-family:var(--display);font-weight:500;font-size:clamp(1.6rem,3.4vw,2.6rem);letter-spacing:-.015em;max-width:22ch}
+  .contact a.mail{
+    display:inline-block;margin-top:1.4rem;font-family:var(--mono);font-size:clamp(.95rem,1.6vw,1.15rem);
+    color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(232,184,75,.35);padding-bottom:.2rem;
+    transition:border-color .2s;
+  }
+  .contact a.mail:hover{border-color:var(--gold)}
+  .contact a.mail:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  .bases{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;color:var(--mist);text-align:right}
+  .bases b{color:var(--paper);font-weight:500}
+  footer{
+    padding:1.6rem clamp(1.25rem,6vw,5rem) 2rem;
+    display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;
+    font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;color:rgba(159,179,177,.55);
+    border-top:1px solid var(--line);
+  }
+  @media (prefers-reduced-motion: reduce){
+    .pillar{transition:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="wordmark" href="#">ledelab<span>.ee</span></a>
+  <nav class="lang-toggle" aria-label="Idioma / Language">
+    <button id="btn-es" aria-pressed="true" onclick="setLang('es')">ES</button>
+    <button id="btn-en" aria-pressed="false" onclick="setLang('en')">EN</button>
+    <button id="btn-et" aria-pressed="false" onclick="setLang('et')">ET</button>
+  </nav>
+</header>
+
+<main>
+  <div class="hero">
+    <canvas id="nodes" aria-hidden="true"></canvas>
+    <div class="hero-inner">
+      <p class="eyebrow">AI · HEALTH · EDUCATION</p>
+      <h1 data-es="Tecnología que extiende el pensamiento, <em>no lo reemplaza.</em>"
+          data-en="Technology that extends thinking, <em>rather than replacing it.</em>"
+          data-et="Tehnoloogia, mis avardab mõtlemist, <em>mitte ei asenda seda.</em>"></h1>
+      <p class="hero-sub"
+         data-es="Diseñamos la metodología y la tecnología de asistentes conversacionales con IA que acompañan cambios reales de conducta — en salud, bienestar y educación."
+         data-en="We design the methodology and technology behind AI conversational assistants that accompany real behavior change — in health, wellbeing, and education."
+          data-et="Loome metoodikat ja tehnoloogiat tehisintellektil põhinevatele vestlusassistentidele, mis toetavad tegelikku käitumise muutust — tervises, heaolus ja hariduses."></p>
+      <p class="hero-echo"
+         data-es="Technology that extends thinking, rather than replacing it"
+         data-en="Tecnología que extiende el pensamiento, no lo reemplaza"
+          data-et="Technology that extends thinking, rather than replacing it"></p>
+    </div>
+    <p class="scroll-hint" data-es="LEDELAB GROUP OÜ · TALLINN" data-en="LEDELAB GROUP OÜ · TALLINN" data-et="LEDELAB GROUP OÜ · TALLINN"></p>
+  </div>
+
+  <section id="what">
+    <p class="section-label" data-es="QUÉ HACEMOS" data-en="WHAT WE DO" data-et="MIDA ME TEEME"></p>
+    <div class="pillars">
+      <article class="pillar">
+        <svg class="pillar-glyph" viewBox="0 0 40 40" aria-hidden="true">
+          <circle cx="20" cy="20" r="13"/>
+          <circle class="dot" cx="20" cy="7" r="2.4"/>
+          <circle class="dot" cx="31" cy="26" r="2.4"/>
+          <circle class="dot" cx="9" cy="26" r="2.4"/>
+        </svg>
+        <h3 data-es="Ciencias del comportamiento" data-en="Behavioral science" data-et="Käitumisteadus"></h3>
+        <p data-es="Modelo Transteórico, COM-B, Entrevista Motivacional y Teoría de la Autodeterminación — aplicados a agentes conversacionales reales, no a presentaciones."
+           data-en="The Transtheoretical Model, COM-B, Motivational Interviewing, and Self-Determination Theory — applied to real conversational agents, not slide decks."
+          data-et="Transteoreetiline mudel, COM-B, motiveeriv intervjueerimine ja enesemääratlemise teooria — rakendatud päris vestlusagentides, mitte esitlustes."></p>
+      </article>
+      <article class="pillar">
+        <svg class="pillar-glyph" viewBox="0 0 40 40" aria-hidden="true">
+          <line x1="8" y1="32" x2="20" y2="20"/>
+          <line x1="20" y1="20" x2="32" y2="24"/>
+          <line x1="20" y1="20" x2="26" y2="8"/>
+          <circle class="dot" cx="8" cy="32" r="2.4"/>
+          <circle class="dot" cx="20" cy="20" r="2.4"/>
+          <circle class="dot" cx="32" cy="24" r="2.4"/>
+          <circle class="dot" cx="26" cy="8" r="2.4"/>
+        </svg>
+        <h3 data-es="Investigación aplicada" data-en="Applied research" data-et="Rakendusuuringud"></h3>
+        <p data-es="IA conversacional que extiende la cognición para sostener cambios de estilo de vida — investigación nacida en la Universidad de Tartu y puesta a trabajar en el terreno."
+           data-en="Conversational AI that extends cognition to sustain lifestyle change — research born at the University of Tartu and put to work in the field."
+          data-et="Vestluspõhine tehisintellekt, mis avardab kognitsiooni püsiva elustiilimuutuse toetamiseks — Tartu Ülikoolis sündinud teadustöö, mis on rakendatud praktikas."></p>
+      </article>
+      <article class="pillar">
+        <svg class="pillar-glyph" viewBox="0 0 40 40" aria-hidden="true">
+          <path d="M8 30 L8 14 L20 8 L32 14 L32 30"/>
+          <circle class="dot" cx="20" cy="22" r="2.4"/>
+        </svg>
+        <h3 data-es="Construcción con socios" data-en="Building with partners" data-et="Ehitame koos partneritega"></h3>
+        <p data-es="Trabajamos con socios y clientes que llevan estas soluciones a su propio terreno — como programas preventivos de bienestar que llegan a familias a través de los colegios en Colombia y Latinoamérica."
+           data-en="We work with partners and clients who take these solutions into their own contexts — like preventive wellbeing programs reaching families through schools in Colombia and Latin America."
+          data-et="Töötame koos partnerite ja klientidega, kes viivad need lahendused oma keskkonda — näiteks ennetavad heaoluprogrammid, mis jõuavad peredeni koolide kaudu Colombias ja Ladina-Ameerikas."></p>
+      </article>
+    </div>
+  </section>
+
+  <section id="how">
+    <p class="section-label" data-es="CÓMO TRABAJAMOS" data-en="HOW WE WORK" data-et="KUIDAS ME TÖÖTAME"></p>
+    <div class="approach">
+      <p data-es="Un asistente conversacional puede informar. Eso es lo fácil."
+         data-en="A conversational assistant can inform. That's the easy part."
+          data-et="Vestlusassistent oskab teavitada. See on lihtne osa."></p>
+      <p data-es="Lo difícil es que <span class='accent'>acompañe</span>: que entienda en qué etapa del cambio está una persona, que pregunte antes de prescribir, y que sostenga el hábito cuando la motivación baja."
+         data-en="The hard part is making it <span class='accent'>accompany</span>: understanding where a person stands in their change process, asking before prescribing, and sustaining the habit when motivation drops."
+          data-et="Raske osa on panna teda <span class='accent'>saatma</span>: mõistma, millises muutuse etapis inimene on, küsima enne soovitamist ja hoidma harjumust, kui motivatsioon langeb."></p>
+      <p data-es="Ese es nuestro oficio. La IA pone la escala; las ciencias del comportamiento ponen el criterio."
+         data-en="That is our craft. AI brings the scale; behavioral science brings the judgment."
+          data-et="See on meie käsitöö. Tehisintellekt annab mastaabi; käitumisteadus annab otsustusvõime."></p>
+    </div>
+  </section>
+
+  <section id="who">
+    <p class="section-label" data-es="QUIÉN ESTÁ DETRÁS" data-en="WHO IS BEHIND IT" data-et="KES ON SELLE TAGA"></p>
+    <div class="founder">
+      <div>
+        <p class="founder-name">Leonardo De la Hoz Borrego</p>
+        <p class="founder-role" data-es="FUNDADOR" data-en="FOUNDER" data-et="ASUTAJA"></p>
+      </div>
+      <div>
+        <p class="founder-bio"
+           data-es="Ingeniero y empresario colombiano, e-residente de Estonia. Tres décadas construyendo empresas en el Caribe colombiano, hoy dedicado a la intersección de IA, salud y educación — y a tender puentes entre Estonia y América Latina."
+           data-en="Colombian engineer and entrepreneur, Estonian e-resident. Three decades building companies in the Colombian Caribbean, now focused on the intersection of AI, health, and education — and on building bridges between Estonia and Latin America."
+          data-et="Colombia insener ja ettevõtja, Eesti e-resident. Kolm aastakümmet ettevõtete ehitamist Colombia Kariibi piirkonnas, nüüd keskendunud tehisintellekti, tervise ja hariduse ristumiskohale — ning sildade ehitamisele Eesti ja Ladina-Ameerika vahel."></p>
+        <div class="founder-creds">
+          <span class="cred">MA EdTech · University of Tartu</span>
+          <span class="cred">MBA Sustainability · Bologna BS</span>
+          <span class="cred">e-Resident of Estonia</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="contact-grid">
+      <div>
+        <h2 data-es="¿Una idea en salud, bienestar o educación que necesite más que un chatbot?"
+            data-en="An idea in health, wellbeing, or education that needs more than a chatbot?"
+          data-et="Idee tervise, heaolu või hariduse vallas, mis vajab enamat kui vestlusrobotit?"></h2>
+        <a class="mail" href="mailto:leonardo@ledelab.group">leonardo@ledelab.group</a>
+      </div>
+      <p class="bases"><b>Tallinn</b> · Barranquilla</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span>LEDELAB GROUP OÜ · Reg. 14513358 · Tallinn, Estonia</span>
+  <span data-es="© 2018–2026 · Hecho con criterio." data-en="© 2018–2026 · Made with judgment." data-et="© 2018–2026 · Tehtud otsustusvõimega."></span>
+</footer>
+
+<script>
+/* ---------- bilingual toggle ---------- */
+function setLang(lang){
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-es]').forEach(el=>{
+    el.innerHTML = el.dataset[lang];
+  });
+  document.getElementById('btn-es').setAttribute('aria-pressed', lang==='es');
+  document.getElementById('btn-en').setAttribute('aria-pressed', lang==='en');
+  const titles = {
+    es: 'LedeLab Group OÜ — Tecnología que extiende el pensamiento',
+    en: 'LedeLab Group OÜ — Technology that extends thinking',
+    et: 'LedeLab Group OÜ — Tehnoloogia, mis avardab mõtlemist'
+  };
+  document.title = titles[lang];
+  document.getElementById('btn-et').setAttribute('aria-pressed', lang==='et');
+}
+setLang('es');
+
+/* ---------- signature: node network that extends toward the cursor ---------- */
+const canvas = document.getElementById('nodes');
+const ctx = canvas.getContext('2d');
+const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let W,H,nodes=[],mouse={x:-9999,y:-9999};
+
+function resize(){
+  const r = canvas.parentElement.getBoundingClientRect();
+  W = canvas.width = r.width * devicePixelRatio;
+  H = canvas.height = r.height * devicePixelRatio;
+  ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+  seed();
+}
+function seed(){
+  const count = Math.min(70, Math.floor((W/devicePixelRatio)/22));
+  nodes = Array.from({length:count},()=>({
+    x:Math.random()*W/devicePixelRatio,
+    y:Math.random()*H/devicePixelRatio,
+    vx:(Math.random()-.5)*.22,
+    vy:(Math.random()-.5)*.22,
+    r:Math.random()*1.6+1
+  }));
+}
+canvas.parentElement.addEventListener('pointermove',e=>{
+  const r = canvas.getBoundingClientRect();
+  mouse.x = e.clientX-r.left; mouse.y = e.clientY-r.top;
+});
+canvas.parentElement.addEventListener('pointerleave',()=>{mouse.x=-9999;mouse.y=-9999});
+
+function frame(){
+  const w=W/devicePixelRatio,h=H/devicePixelRatio;
+  ctx.clearRect(0,0,w,h);
+  for(const n of nodes){
+    if(!reduced){
+      n.x+=n.vx; n.y+=n.vy;
+      if(n.x<0||n.x>w)n.vx*=-1;
+      if(n.y<0||n.y>h)n.vy*=-1;
+      /* gentle extension toward the cursor — thinking reaching out */
+      const dx=mouse.x-n.x, dy=mouse.y-n.y, d=Math.hypot(dx,dy);
+      if(d<220 && d>1){ n.x+=dx/d*.35; n.y+=dy/d*.35; }
+    }
+    ctx.beginPath();
+    ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+    ctx.fillStyle='rgba(232,184,75,.55)';
+    ctx.fill();
+  }
+  for(let i=0;i<nodes.length;i++){
+    for(let j=i+1;j<nodes.length;j++){
+      const a=nodes[i],b=nodes[j];
+      const d=Math.hypot(a.x-b.x,a.y-b.y);
+      if(d<130){
+        ctx.beginPath();
+        ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y);
+        ctx.strokeStyle=`rgba(159,179,177,${(1-d/130)*.28})`;
+        ctx.lineWidth=.7;
+        ctx.stroke();
+      }
+    }
+  }
+  if(!reduced) requestAnimationFrame(frame);
+}
+window.addEventListener('resize',resize);
+resize();
+frame();
+</script>
+</body>
+</html>
